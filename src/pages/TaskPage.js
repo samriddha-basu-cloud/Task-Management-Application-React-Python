@@ -10,7 +10,7 @@ const TaskPage = () => {
 
   useEffect(() => {
     // Fetch task details from the API
-    fetch(`http://127.0.0.1:5000/api/tasks/${id}`)
+    fetch(`https://task-management-backend-89n5.onrender.com/api/tasks/${id}`)
       .then(response => response.json())
       .then(data => setTask(data))
       .catch(error => console.error('Error fetching task:', error));
@@ -18,7 +18,7 @@ const TaskPage = () => {
 
   const updateTask = (updatedTask) => {
     // API call to update the task
-    fetch(`http://127.0.0.1:5000/api/tasks/${id}`, {
+    fetch(`https://task-management-backend-89n5.onrender.com/api/tasks/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -32,7 +32,7 @@ const TaskPage = () => {
 
   const deleteTask = () => {
     // API call to delete the task
-    fetch(`http://127.0.0.1:5000/api/tasks/${id}`, {
+    fetch(`https://task-management-backend-89n5.onrender.com/api/tasks/${id}`, {
       method: 'DELETE',
     })
     .then(() => window.location.href = '/')
