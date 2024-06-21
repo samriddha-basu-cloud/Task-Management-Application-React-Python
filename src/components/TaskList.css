@@ -1,0 +1,18 @@
+.task-list {
+  margin: auto;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* This replaces the Grid spacing */
+}
+
+.task-item-container {
+  width: 100%;
+}
+
+/* For screens larger than 768px, limit the max-width */
+@media (min-width: 768px) {
+  .task-list {
+    max-width: 896px; /* This is equivalent to Tailwind's max-w-4xl */
+  }
+}

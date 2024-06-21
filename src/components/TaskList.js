@@ -1,26 +1,16 @@
 import React from 'react';
 import TaskItem from './TaskItem';
-import { Grid, Typography } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-
-const useStyles = makeStyles((theme) => ({
-  gridContainer: {
-    margin: 'auto',
-    maxWidth: '100%',
-  },
-}));
+import './TaskList.css'; // You'll need to create this CSS file
 
 const TaskList = ({ tasks }) => {
-  const classes = useStyles();
-
   return (
-    <Grid container spacing={3} className={`${classes.gridContainer} mx-auto max-w-4xl`}>
+    <div className="task-list">
       {tasks.map(task => (
-        <Grid item xs={12} key={task.id}>
+        <div className="task-item-container" key={task.id}>
           <TaskItem task={task} />
-        </Grid>
+        </div>
       ))}
-    </Grid>
+    </div>
   );
 };
 

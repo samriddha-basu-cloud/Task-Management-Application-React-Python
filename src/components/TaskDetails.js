@@ -1,41 +1,5 @@
 import React, { useState } from 'react';
-import { Card, CardContent, Typography, Button, Modal, Backdrop, Fade, Box } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-
-const useStyles = makeStyles((theme) => ({
-  card: {
-    maxWidth: 600,
-    margin: 'auto',
-    marginTop: theme.spacing(8),
-    marginBottom: theme.spacing(4),
-    padding: theme.spacing(3),
-    boxShadow: theme.shadows[2],
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: theme.palette.background.paper,
-  },
-  description: {
-    marginBottom: theme.spacing(2),
-    whiteSpace: 'pre-wrap', // Allows the text to wrap and break at word boundaries
-  },
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  modalContent: {
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(3),
-    maxWidth: '80%',
-    maxHeight: '80%',
-    overflowY: 'auto',
-    outline: 'none',
-    borderRadius: theme.shape.borderRadius,
-  },
-  modalTitle: {
-    marginBottom: theme.spacing(2),
-  },
-}));
+import './TaskDetails.css'; // You'll need to create this CSS file
 
 const formatDate = (isoDate) => {
   const date = new Date(isoDate);
@@ -50,81 +14,54 @@ const calculateDaysLeft = (dueDate) => {
   const currentDate = new Date();
   const dueDateTime = new Date(dueDate);
   const timeDiff = dueDateTime.getTime() - currentDate.getTime();
-  const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24)) - 1; // Convert milliseconds to days
+  const daysLeft = Math.ceil(timeDiff / (1000 * 3600 * 24)) - 1;
 
   return daysLeft;
 };
 
 const DescriptionModal = ({ open, handleClose, description }) => {
-  const classes = useStyles();
+  if (!open) return null;
 
   return (
-    <Modal
-      className={classes.modal}
-      open={open}
-      onClose={handleClose}
-      closeAfterTransition
-      BackdropComponent={Backdrop}
-      BackdropProps={{
-        timeout: 500,
-      }}
-    >
-      <Fade in={open}>
-        <Box className={classes.modalContent}>
-          <Typography variant="h5" component="h2" className={classes.modalTitle} gutterBottom>
-            Full Description
-          </Typography>
-          <Typography variant="body1" className={classes.description}>
-            {description}
-          </Typography>
-        </Box>
-      </Fade>
-    </Modal>
+    <div className="modal-overlay" onClick={handleClose}>
+      <div className="modal-content" onClick={e => e.stopPropagation()}>
+        <h2 className="modal-title">Full Description</h2>
+        <p className="description">{description}</p>
+        <button className="close-button" onClick={handleClose}>Close</button>
+      </div>
+    </div>
   );
 };
 
 const TaskDetails = ({ task, onDelete }) => {
-  const classes = useStyles();
   const [modalOpen, setModalOpen] = useState(false);
 
-  const handleModalOpen = () => {
-    setModalOpen(true);
-  };
+  const handleModalOpen = () => setModalOpen(true);
+  const handleModalClose = () => setModalOpen(false);
 
-  const handleModalClose = () => {
-    setModalOpen(false);
-  };
-
-  // Format the due date to dd/mm/yyyy
   const formattedDueDate = formatDate(task.dueDate);
-
-  // Calculate the number of days left to complete the task
   const daysLeft = calculateDaysLeft(task.dueDate);
-
-  // Truncate the description to 25 characters and add "..." if it exceeds
   const truncatedDescription = task.description.length > 25 ? `${task.description.substring(0, 25)}...` : task.description;
 
   return (
-    <Card className={classes.card}>
-      <CardContent>
-        <Typography variant="h5" component="h2" gutterBottom>
-          {task.title}
-        </Typography>
-        <Typography variant="body1" className={classes.description}>
+    <div className="card">
+      <div className="card-content">
+        <h2 className="task-title">{task.title}</h2>
+        <p className="description">
           {truncatedDescription}
           {task.description.length > 25 && (
-            <Button color="primary" onClick={handleModalOpen}>
+            <button className="view-more-button" onClick={handleModalOpen}>
               View Full Description
-            </Button>
+            </button>
           )}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="p">
+        </p>
+        <p className="task-details">
           <strong>Due Date:</strong> {formattedDueDate} <br />
           <strong>Days Left:</strong> {daysLeft}
-        </Typography>
+        </p>
         <DescriptionModal open={modalOpen} handleClose={handleModalClose} description={task.description} />
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 

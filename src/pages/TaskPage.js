@@ -1,41 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Container, Typography, Button, Box } from '@mui/material';
-import { makeStyles } from '@mui/styles';
 import TaskDetails from '../components/TaskDetails';
 import TaskForm from '../components/TaskForm';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-
-const useStyles = makeStyles((theme) => ({
-  container: {
-    marginTop: theme.spacing(8),
-    marginBottom: theme.spacing(8),
-    padding: theme.spacing(3),
-    boxShadow: theme.shadows[2],
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: theme.palette.background.paper,
-    fontFamily: 'Georgia, serif', // Apply Georgia font
-    position: 'relative', // Ensure position for absolute back button
-  },
-  title: {
-    fontFamily: 'Georgia, serif',
-    marginBottom: theme.spacing(4),
-  },
-  buttonGroup: {
-    fontFamily: 'Georgia, serif',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    marginTop: theme.spacing(2),
-  },
-  backButton: {
-    position: 'absolute',
-    top: theme.spacing(2),
-    left: theme.spacing(2),
-  },
-}));
+import './TaskPage.css'; // You'll need to create this CSS file
 
 const TaskPage = () => {
-  const classes = useStyles();
   const { id } = useParams();
   const [task, setTask] = useState(null);
 
@@ -73,23 +42,19 @@ const TaskPage = () => {
   if (!task) return <div>Loading...</div>;
 
   return (
-    <Container maxWidth="md" className={classes.container}>
-      <Link to="/" className={classes.backButton}>
-        <Button variant="contained" color="primary">
-          <ArrowBackIcon />
-        </Button>
+    <div className="container">
+      <Link to="/" className="back-button">
+        <button>← Back</button>
       </Link>
-      <Typography variant="h3" align="center" className={classes.title} gutterBottom>
-        Task Details
-      </Typography>
+      <h1 className="title">Task Details</h1>
       <TaskDetails task={task} onDelete={deleteTask} />
       <TaskForm task={task} onSubmit={updateTask} />
-      <Box className={classes.buttonGroup}>
-        <Button variant="contained" color="secondary" onClick={deleteTask}>
+      <div className="button-group">
+        <button className="delete-button" onClick={deleteTask}>
           Delete Task
-        </Button>
-      </Box>
-    </Container>
+        </button>
+      </div>
+    </div>
   );
 };
 

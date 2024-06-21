@@ -1,23 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Grid } from '@mui/material';
-import { makeStyles } from '@mui/styles';
-
-const useStyles = makeStyles((theme) => ({
-  formContainer: {
-    maxWidth: '80%',
-    margin: 'auto',
-    marginTop: theme.spacing(4),
-    padding: theme.spacing(2),
-    border: `1px solid ${theme.palette.divider}`,
-    borderRadius: theme.shape.borderRadius,
-    boxShadow: theme.shadows[2],
-    fontFamily: 'Georgia, serif', // Apply Georgia font
-  },
-}));
+import './TaskForm.css'; // You'll need to create this CSS file
 
 const TaskForm = ({ task, onSubmit }) => {
-  const classes = useStyles();
-
   const [title, setTitle] = useState(task ? task.title : '');
   const [description, setDescription] = useState(task ? task.description : '');
   const [dueDate, setDueDate] = useState(task ? task.dueDate : '');
@@ -36,49 +20,41 @@ const TaskForm = ({ task, onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={`${classes.formContainer} mx-auto`}>
-      <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            label="Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            label="Description"
-            multiline
-            rows={4}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            variant="outlined"
-            type="date"
-            label="Due Date"
-            value={dueDate}
-            onChange={(e) => setDueDate(e.target.value)}
-            required
-            InputLabelProps={{ shrink: true }}
-            inputProps={{ min: new Date().toISOString().split('T')[0] }} // Restrict past dates
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Button type="submit" variant="contained" color="primary">
-            Save
-          </Button>
-        </Grid>
-      </Grid>
+    <form onSubmit={handleSubmit} className="form-container">
+      <div className="form-group">
+        <label htmlFor="title">Title</label>
+        <input
+          id="title"
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="description">Description</label>
+        <textarea
+          id="description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+          rows={4}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="dueDate">Due Date</label>
+        <input
+          id="dueDate"
+          type="date"
+          value={dueDate}
+          onChange={(e) => setDueDate(e.target.value)}
+          required
+          min={new Date().toISOString().split('T')[0]}
+        />
+      </div>
+      <button type="submit" className="submit-button">
+        Save
+      </button>
     </form>
   );
 };
