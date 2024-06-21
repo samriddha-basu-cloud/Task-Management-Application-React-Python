@@ -8,7 +8,7 @@ const TaskItem = ({ task, onDelete }) => {
       <div className="card-content">
         <h2 className="title">{task.title}</h2>
         <p className="description">
-          {task.description.length > 100 ? `${task.description.substring(0, 100)}...` : task.description}
+          {task.description.length > 35 ? `${task.description.substring(0, 35)}...` : task.description}
         </p>
         <Link to={`/task/${task.id}`} className="view-details-link">
           <button className="view-details-button">View Details</button>

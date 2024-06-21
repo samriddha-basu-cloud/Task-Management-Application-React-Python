@@ -5,7 +5,7 @@ import './TaskList.css'; // You'll need to create this CSS file
 const TaskList = ({ tasks }) => {
   return (
     <div className="task-list">
-      {tasks.map(task => (
+      {[...tasks].reverse().map(task => (
         <div className="task-item-container" key={task.id}>
           <TaskItem task={task} />
         </div>

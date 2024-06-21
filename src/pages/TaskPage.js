@@ -48,6 +48,7 @@ const TaskPage = () => {
       </Link>
       <h1 className="title">Task Details</h1>
       <TaskDetails task={task} onDelete={deleteTask} />
+      <h2 className = "subtitle" > Update Task </h2>
       <TaskForm task={task} onSubmit={updateTask} />
       <div className="button-group">
         <button className="delete-button" onClick={deleteTask}>

@@ -26,6 +26,7 @@ const DescriptionModal = ({ open, handleClose, description }) => {
     <div className="modal-overlay" onClick={handleClose}>
       <div className="modal-content" onClick={e => e.stopPropagation()}>
         <h2 className="modal-title">Full Description</h2>
+        <span className = "scroll-message" > Scroll→ </span>
         <p className="description">{description}</p>
         <button className="close-button" onClick={handleClose}>Close</button>
       </div>
@@ -50,9 +51,11 @@ const TaskDetails = ({ task, onDelete }) => {
         <p className="description">
           {truncatedDescription}
           {task.description.length > 25 && (
-            <button className="view-more-button" onClick={handleModalOpen}>
-              View Full Description
-            </button>
+            <>
+              <button className="view-more-button" onClick={handleModalOpen}>
+                View Full Description
+              </button>
+            </>
           )}
         </p>
         <p className="task-details">

@@ -19,15 +19,16 @@
 
 .form-group input,
 .form-group textarea {
-  width: 100%;
+  width: 96%;
   padding: 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-family: inherit;
+  margin: auto;
 }
 
 .submit-button {
-  background-color: #1976d2;
+  background-color: #d21982;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -37,5 +38,5 @@
 }
 
 .submit-button:hover {
-  background-color: #1565c0;
+  background-color: #d21982d1;
 }

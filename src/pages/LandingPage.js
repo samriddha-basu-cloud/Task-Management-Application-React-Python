@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import TaskList from '../components/TaskList';
 import TaskForm from '../components/TaskForm';
-import './LandingPage.css'; // You'll need to create this CSS file
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import './LandingPage.css';
 
 const LandingPage = () => {
   const [tasks, setTasks] = useState([]);
+  const taskListRef = useRef(null);
 
   useEffect(() => {
-    // Fetch tasks from the API
     fetch('https://task-management-backend-89n5.onrender.com/api/tasks')
       .then(response => response.json())
       .then(data => setTasks(data))
@@ -15,7 +17,6 @@ const LandingPage = () => {
   }, []);
 
   const addTask = (task) => {
-    // API call to add a task
     fetch('https://task-management-backend-89n5.onrender.com/api/tasks', {
       method: 'POST',
       headers: {
@@ -29,16 +30,22 @@ const LandingPage = () => {
   };
 
   const deleteTask = (id) => {
-    // API call to delete the task
     fetch(`https://task-management-backend-89n5.onrender.com/api/tasks/${id}`, {
       method: 'DELETE',
     })
       .then(() => {
-        // After successful deletion, update the tasks list
         const updatedTasks = tasks.filter(task => task.id !== id);
         setTasks(updatedTasks);
       })
       .catch(error => console.error('Error deleting task:', error));
+  };
+
+  const scrollUp = () => {
+    taskListRef.current.scrollBy({ top: -350, behavior: 'smooth' });
+  };
+
+  const scrollDown = () => {
+    taskListRef.current.scrollBy({ top: 350, behavior: 'smooth' });
   };
 
   return (
@@ -48,7 +55,10 @@ const LandingPage = () => {
         <TaskForm onSubmit={addTask} />
       </div>
       <h2 className="heading">Tasks</h2>
-      <div className="task-list-container">
+      {tasks.length > 1 && (
+        <p className="scroll-message">Scroll down for more tasks</p>
+      )}
+      <div className="task-list-container" ref={taskListRef}>
         {tasks.length === 0 ? (
           <p className="no-tasks-message">
             No tasks as of now. Add tasks by filling the form above.
@@ -57,6 +67,16 @@ const LandingPage = () => {
           <TaskList tasks={tasks} onDelete={deleteTask} />
         )}
       </div>
+      {tasks.length > 1 && (
+        <div className="scroll-buttons">
+          <button className="scroll-button" onClick={scrollUp}>
+            <FontAwesomeIcon icon={faArrowUp} />
+          </button>
+          <button className="scroll-button" onClick={scrollDown}>
+            <FontAwesomeIcon icon={faArrowDown} />
+          </button>
+        </div>
+      )}
     </div>
   );
 };
