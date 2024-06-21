@@ -17,6 +17,10 @@ const TaskForm = ({ task, onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit({ title, description, dueDate });
+    // Reset form fields after submitting
+    setTitle('');
+    setDescription('');
+    setDueDate('');
   };
 
   return (
