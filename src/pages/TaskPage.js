@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Container, Typography, makeStyles, Button } from '@material-ui/core';
+import { Container, Typography, Button, Box } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import TaskDetails from '../components/TaskDetails';
 import TaskForm from '../components/TaskForm';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -73,22 +73,22 @@ const TaskPage = () => {
   if (!task) return <div>Loading...</div>;
 
   return (
-    <Container maxWidth="md" className={`${classes.container} mx-auto`}>
+    <Container maxWidth="md" className={classes.container}>
       <Link to="/" className={classes.backButton}>
         <Button variant="contained" color="primary">
-            <ArrowBackIcon />
+          <ArrowBackIcon />
         </Button>
-        </Link>
+      </Link>
       <Typography variant="h3" align="center" className={classes.title} gutterBottom>
         Task Details
       </Typography>
       <TaskDetails task={task} onDelete={deleteTask} />
       <TaskForm task={task} onSubmit={updateTask} />
-      <div className={classes.buttonGroup}>
+      <Box className={classes.buttonGroup}>
         <Button variant="contained" color="secondary" onClick={deleteTask}>
           Delete Task
         </Button>
-      </div>
+      </Box>
     </Container>
   );
 };

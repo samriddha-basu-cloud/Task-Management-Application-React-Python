@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Card, CardContent, Typography, Button, makeStyles, Modal, Backdrop, Fade } from '@material-ui/core';
+import { Card, CardContent, Typography, Button, Modal, Backdrop, Fade, Box } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -69,14 +70,14 @@ const DescriptionModal = ({ open, handleClose, description }) => {
       }}
     >
       <Fade in={open}>
-        <div className={classes.modalContent}>
+        <Box className={classes.modalContent}>
           <Typography variant="h5" component="h2" className={classes.modalTitle} gutterBottom>
             Full Description
           </Typography>
           <Typography variant="body1" className={classes.description}>
             {description}
           </Typography>
-        </div>
+        </Box>
       </Fade>
     </Modal>
   );

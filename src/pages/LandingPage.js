@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import TaskList from '../components/TaskList';
 import TaskForm from '../components/TaskForm';
-import { Container, Typography, makeStyles } from '@material-ui/core';
+import { Container, Typography, Box } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -77,13 +78,13 @@ const LandingPage = () => {
       <Typography variant="h3" align="center" className={classes.title} gutterBottom>
         Task Management
       </Typography>
-      <div className="mt-6"> {/* Margin top for spacing between form and task list */}
+      <Box mt={6}> {/* Margin top for spacing between form and task list */}
         <TaskForm onSubmit={addTask} />
-      </div>
+      </Box>
       <Typography variant="h4" className={classes.heading} style={{ marginTop: '20px', textAlign: 'center' }}>
         Tasks
       </Typography>
-      <div className={classes.taskList}>
+      <Box className={classes.taskList}>
         {tasks.length === 0 ? (
           <Typography variant="body1" className={classes.noTasksMessage}>
             No tasks as of now. Add tasks by filling the form above.
@@ -91,7 +92,7 @@ const LandingPage = () => {
         ) : (
           <TaskList tasks={tasks} onDelete={deleteTask} />
         )}
-      </div>
+      </Box>
     </Container>
   );
 };

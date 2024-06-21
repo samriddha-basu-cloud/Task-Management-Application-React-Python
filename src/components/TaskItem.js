@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardContent, Typography, Button, makeStyles, IconButton } from '@material-ui/core';
+import { Card, CardContent, Typography, Button, IconButton } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -39,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
 
 const TaskItem = ({ task, onDelete }) => {
   const classes = useStyles();
-
 
   return (
     <Card className={classes.card}>
