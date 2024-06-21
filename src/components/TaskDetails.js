@@ -1,6 +1,8 @@
+// Importing necessary modules and CSS from React and local files
 import React, { useState } from 'react';
 import './TaskDetails.css'; 
 
+// This function takes an ISO date string and returns a formatted date string
 const formatDate = (isoDate) => {
   const date = new Date(isoDate);
   const day = date.getDate();
@@ -10,6 +12,7 @@ const formatDate = (isoDate) => {
   return `${day < 10 ? '0' + day : day}/${month < 10 ? '0' + month : month}/${year}`;
 };
 
+// This function takes a due date and returns the number of days left until that date
 const calculateDaysLeft = (dueDate) => {
   const currentDate = new Date();
   const dueDateTime = new Date(dueDate);
@@ -19,6 +22,7 @@ const calculateDaysLeft = (dueDate) => {
   return daysLeft;
 };
 
+// This is a functional component for a modal that displays a task's full description
 const DescriptionModal = ({ open, handleClose, description }) => {
   if (!open) return null;
 
@@ -34,6 +38,7 @@ const DescriptionModal = ({ open, handleClose, description }) => {
   );
 };
 
+// This is a functional component for a task's details
 const TaskDetails = ({ task, onDelete }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -68,4 +73,5 @@ const TaskDetails = ({ task, onDelete }) => {
   );
 };
 
+// The component is exported for use in other parts of the application
 export default TaskDetails;
